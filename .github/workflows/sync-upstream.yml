@@ -28,15 +28,10 @@ jobs:
       - name: Fetch upstream
         run: git fetch upstream
 
-      - name: Merge upstream/main (fast-forward only)
+      - name: Merge upstream/main
         run: |
           git checkout main
-          if git merge --ff-only upstream/main; then
-            echo "Fast-forward merge succeeded."
-          else
-            echo "Fast-forward merge failed - fork has diverged. Manual sync required."
-            exit 1
-          fi
+          git merge upstream/main --no-edit -m "chore: sync with upstream coreyhaines31/marketingskills"
 
       - name: Push to fork
         run: git push origin main
